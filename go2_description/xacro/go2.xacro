@@ -4,9 +4,9 @@ Stephen Brawner (brawner@gmail.com)
      Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
-  name="go2_description">
+  name="go2_description" xmlns:xacro="http://ros.org/wiki/xacro">
   <link
-    name="base">
+    name="base_link">
     <inertial>
       <origin
         xyz="0.021112 0 -0.005366"
@@ -27,7 +27,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/base.dae" />
+          filename="file://$(find go2_description)/dae/base_link.dae" />
       </geometry>
       <material
         name="">
@@ -42,6 +42,22 @@ Stephen Brawner (brawner@gmail.com)
       </geometry>
     </collision>
   </link>
+    <!-- 添加虚拟根链接 -->
+    <link name="dummy_base_link">
+        <visual>
+            <geometry>
+                <box size="0.001 0.001 0.001"/> <!-- 极小尺寸 -->
+            </geometry>
+        </visual>
+    </link>
+    <!-- 添加固定关节连接虚拟链接和原base_link -->
+    <joint name="dummy_joint" type="fixed">
+        <parent link="dummy_base_link"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+    
+
   <link
     name="Head_upper">
     <inertial>
@@ -74,7 +90,7 @@ Stephen Brawner (brawner@gmail.com)
       xyz="0.285 0 0.01"
       rpy="0 0 0" />
     <parent
-      link="base" />
+      link="base_link" />
     <child
       link="Head_upper" />
     <axis
@@ -140,7 +156,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/hip.dae" />
+          filename="file://$(find go2_description)/dae/hip.dae" />
       </geometry>
       <material
         name="">
@@ -162,7 +178,7 @@ Stephen Brawner (brawner@gmail.com)
       xyz="0.1934 0.0465 0"
       rpy="0 0 0" />
     <parent
-      link="base" />
+      link="base_link" />
     <child
       link="FL_hip" />
     <axis
@@ -195,7 +211,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/FL_thigh.dae" />
+          filename="file://$(find go2_description)/dae/thigh.dae" />
       </geometry>
       <material
         name="">
@@ -250,7 +266,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/calf.dae" />
+          filename="file://$(find go2_description)/dae/calf.dae" />
       </geometry>
       <material
         name="">
@@ -280,8 +296,8 @@ Stephen Brawner (brawner@gmail.com)
     <limit
       lower="-2.7227"
       upper="-0.83776"
-      effort="35.55"
-      velocity="20.07" />
+      effort="45.43"
+      velocity="15.70" />
   </joint>
   <link
     name="FL_calflower">
@@ -349,7 +365,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/foot.dae" />
+          filename="file://$(find go2_description)/dae/foot.dae" />
       </geometry>
       <material
         name="">
@@ -399,7 +415,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="3.1415 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/hip.dae" />
+          filename="file://$(find go2_description)/dae/hip.dae" />
       </geometry>
       <material
         name="">
@@ -421,7 +437,7 @@ Stephen Brawner (brawner@gmail.com)
       xyz="0.1934 -0.0465 0"
       rpy="0 0 0" />
     <parent
-      link="base" />
+      link="base_link" />
     <child
       link="FR_hip" />
     <axis
@@ -454,7 +470,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/thigh_mirror.dae" />
+          filename="file://$(find go2_description)/dae/thigh_mirror.dae" />
       </geometry>
       <material
         name="">
@@ -509,7 +525,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/calf_mirror.dae" />
+          filename="file://$(find go2_description)/dae/calf_mirror.dae" />
       </geometry>
       <material
         name="">
@@ -539,8 +555,8 @@ Stephen Brawner (brawner@gmail.com)
     <limit
       lower="-2.7227"
       upper="-0.83776"
-      effort="35.55"
-      velocity="20.07" />
+      effort="45.43"
+      velocity="15.70" />
   </joint>
   <link
     name="FR_calflower">
@@ -608,7 +624,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/foot.dae" />
+          filename="file://$(find go2_description)/dae/foot.dae" />
       </geometry>
       <material
         name="">
@@ -658,7 +674,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 3.1415 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/hip.dae" />
+          filename="file://$(find go2_description)/dae/hip.dae" />
       </geometry>
       <material
         name="">
@@ -680,7 +696,7 @@ Stephen Brawner (brawner@gmail.com)
       xyz="-0.1934 0.0465 0"
       rpy="0 0 0" />
     <parent
-      link="base" />
+      link="base_link" />
     <child
       link="RL_hip" />
     <axis
@@ -713,7 +729,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/FL_thigh.dae" />
+          filename="file://$(find go2_description)/dae/thigh.dae" />
       </geometry>
       <material
         name="">
@@ -768,7 +784,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/calf.dae" />
+          filename="file://$(find go2_description)/dae/calf.dae" />
       </geometry>
       <material
         name="">
@@ -798,8 +814,8 @@ Stephen Brawner (brawner@gmail.com)
     <limit
       lower="-2.7227"
       upper="-0.83776"
-      effort="35.55"
-      velocity="20.07" />
+      effort="45.43"
+      velocity="15.70" />
   </joint>
   <link
     name="RL_calflower">
@@ -867,7 +883,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/foot.dae" />
+          filename="file://$(find go2_description)/dae/foot.dae" />
       </geometry>
       <material
         name="">
@@ -917,7 +933,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="3.1415 3.1415 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/hip.dae" />
+          filename="file://$(find go2_description)/dae/hip.dae" />
       </geometry>
       <material
         name="">
@@ -939,7 +955,7 @@ Stephen Brawner (brawner@gmail.com)
       xyz="-0.1934 -0.0465 0"
       rpy="0 0 0" />
     <parent
-      link="base" />
+      link="base_link" />
     <child
       link="RR_hip" />
     <axis
@@ -972,7 +988,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/thigh_mirror.dae" />
+          filename="file://$(find go2_description)/dae/thigh_mirror.dae" />
       </geometry>
       <material
         name="">
@@ -1027,7 +1043,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/calf_mirror.dae" />
+          filename="file://$(find go2_description)/dae/calf_mirror.dae" />
       </geometry>
       <material
         name="">
@@ -1057,8 +1073,8 @@ Stephen Brawner (brawner@gmail.com)
     <limit
       lower="-2.7227"
       upper="-0.83776"
-      effort="35.55"
-      velocity="20.07" />
+      effort="45.43"
+      velocity="15.70" />
   </joint>
   <link
     name="RR_calflower">
@@ -1126,7 +1142,7 @@ Stephen Brawner (brawner@gmail.com)
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://go2_description/dae/foot.dae" />
+          filename="file://$(find go2_description)/dae/foot.dae" />
       </geometry>
       <material
         name="">
@@ -1178,7 +1194,7 @@ Stephen Brawner (brawner@gmail.com)
       xyz="-0.02557 0 0.04232"
       rpy="0 0 0" />
     <parent
-      link="base" />
+      link="base_link" />
     <child
       link="imu" />
     <axis
@@ -1208,7 +1224,7 @@ Stephen Brawner (brawner@gmail.com)
       xyz="0.28945 0 -0.046825"
       rpy="0 2.8782 0" />
     <parent
-      link="base" />
+      link="base_link" />
     <child
       link="radar" />
     <axis
