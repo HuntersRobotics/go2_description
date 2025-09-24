@@ -1,0 +1,11 @@
+[Unit]
+Description="bringup ros-humble-go2-description"
+After=network.target
+
+[Service]
+ExecStart=/opt/ros/humble/bin/ros2 launch go2_description go2_with_mid360.launch.py
+Restart=always
+RestartSec=1s
+
+[Install]
+WantedBy=multi-user.target
