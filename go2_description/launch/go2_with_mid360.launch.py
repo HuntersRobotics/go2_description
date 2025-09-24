@@ -23,7 +23,7 @@ def generate_launch_description():
     )
     
     pkg_name = "go2_description"
-    xacro_name = "go2.xacro"
+    xacro_name = "go2_with_mid360.xacro"
     pkg_share = get_package_share_directory(pkg_name)
     xacro_path = os.path.join(pkg_share, 'xacro', xacro_name)
     robot_description = ParameterValue(Command(['xacro ', xacro_path]),

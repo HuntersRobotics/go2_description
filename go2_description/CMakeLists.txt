@@ -20,7 +20,7 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-install(DIRECTORY launch config dae meshes xacro urdf
+install(DIRECTORY launch config dae meshes xacro
         DESTINATION share/${PROJECT_NAME})
 
 
