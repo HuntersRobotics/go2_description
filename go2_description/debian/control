@@ -8,5 +8,5 @@ Standards-Version: 3.9.2
 
 Package: ros-humble-go2-description
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, ros-humble-joint-state-publisher, ros-humble-joint-state-publisher-gui
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-humble-joint-state-publisher, ros-humble-joint-state-publisher-gui, ros-humble-xacro
 Description: TODO: Package description
