@@ -26,9 +26,15 @@ def generate_launch_description():
         [
             DeclareLaunchArgument(
                 "gui",
-                default_value="true",
+                default_value="false",
                 choices=["true", "false"],
-                description="Use joint_state_publisher_gui",
+                description="Use joint_state_publisher_gui (edge: false)",
+            ),
+            DeclareLaunchArgument(
+                "launch_rviz",
+                default_value="false",
+                choices=["true", "false"],
+                description="Launch RViz2 (edge: false)",
             ),
             Node(
                 package="joint_state_publisher_gui",
@@ -51,6 +57,7 @@ def generate_launch_description():
                 executable="rviz2",
                 arguments=["-d", rviz_config],
                 output="screen",
+                condition=IfCondition(LaunchConfiguration("launch_rviz")),
             ),
         ]
     )
